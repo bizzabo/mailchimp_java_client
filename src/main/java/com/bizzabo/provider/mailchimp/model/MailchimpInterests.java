@@ -1,9 +1,6 @@
-package com.bizzabo.provider.mailchimp;
+package com.bizzabo.provider.mailchimp.model;
 
 import java.util.List;
-
-import com.bizzabo.provider.mailchimp.api.MailchimpInterest;
-import com.bizzabo.provider.mailchimp.model.MailchimpResource;
 
 public class MailchimpInterests extends MailchimpResource
 {

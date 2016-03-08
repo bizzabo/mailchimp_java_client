@@ -1,7 +1,7 @@
 package com.bizzabo.provider.mailchimp.api;
 
-import com.bizzabo.provider.mailchimp.MailchimpInterests;
 import com.bizzabo.provider.mailchimp.model.MailchimpCategories;
+import com.bizzabo.provider.mailchimp.model.MailchimpInterests;
 import com.bizzabo.provider.mailchimp.model.MailchimpLists;
 
 public class ListsV3API extends APIV3Resource
