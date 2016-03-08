@@ -1,13 +1,23 @@
-package com.bizzabo.provider.mailchimp.model;
+package com.bizzabo.provider.mailchimp.api;
 
-public class MailchimpCategory extends MailchimpResource
+import com.bizzabo.provider.mailchimp.model.MailchimpResource;
+
+public class MailchimpInterest extends MailchimpResource
 {
+	private String categoryId;
 	private String listId;
 	private String id;
-	private String title;
+	private String name;
 	private Integer displayOrder;
-	private String type;
 	
+	public String getCategoryId()
+	{
+		return categoryId;
+	}
+	public void setCategoryId(String categoryId)
+	{
+		this.categoryId = categoryId;
+	}
 	public String getListId()
 	{
 		return listId;
@@ -24,13 +34,13 @@ public class MailchimpCategory extends MailchimpResource
 	{
 		this.id = id;
 	}
-	public String getTitle()
+	public String getName()
 	{
-		return title;
+		return name;
 	}
-	public void setTitle(String title)
+	public void setName(String name)
 	{
-		this.title = title;
+		this.name = name;
 	}
 	public Integer getDisplayOrder()
 	{
@@ -39,14 +49,6 @@ public class MailchimpCategory extends MailchimpResource
 	public void setDisplayOrder(Integer displayOrder)
 	{
 		this.displayOrder = displayOrder;
-	}
-	public String getType()
-	{
-		return type;
-	}
-	public void setType(String type)
-	{
-		this.type = type;
 	}
 	
 }

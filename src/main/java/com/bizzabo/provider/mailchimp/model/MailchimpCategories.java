@@ -2,7 +2,7 @@ package com.bizzabo.provider.mailchimp.model;
 
 import java.util.List;
 
-public class MailchimpCategories
+public class MailchimpCategories extends MailchimpResource
 {
 	private String listId;
 	private List<MailchimpCategory> categories;
