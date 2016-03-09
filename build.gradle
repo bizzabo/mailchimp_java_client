@@ -7,10 +7,6 @@ group 'com.bizzabo.provider'
 
 sourceCompatibility = 1.5
 version = '0.1'
-configurations {
-	exportjar
-}
-
 
 repositories {
     mavenCentral()
@@ -27,14 +23,3 @@ dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.+'
 }
 
-
-
-task createexportjar(type: Jar) {
-	baseName = 'mailchimp_java_client'
-	from sourceSets.main.output
-	include('**')
-}
-
-artifacts {
-	exportjar createexportjar
-}
