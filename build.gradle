@@ -1,14 +1,14 @@
 apply plugin: 'java'
 apply plugin: 'eclipse'
 
+group 'com.bizzabo.provider'
+
 sourceCompatibility = 1.5
-version = '3.0'
-jar {
-    manifest {
-        attributes 'Implementation-Title': 'Mailchimp Client ',
-                   'Implementation-Version': version
-    }
+version = '0.1'
+configurations {
+	exportjar
 }
+
 
 repositories {
     mavenCentral()
@@ -25,14 +25,14 @@ dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.+'
 }
 
-test {
-    systemProperties 'property': 'value'
+
+
+task createexportjar(type: Jar) {
+	baseName = 'mailchimp_java_client'
+	from sourceSets.main.output
+	include('**')
 }
 
-uploadArchives {
-    repositories {
-       flatDir {
-           dirs 'repos'
-       }
-    }
+artifacts {
+	exportjar createexportjar
 }

@@ -3,6 +3,7 @@ package com.bizzabo.provider.mailchimp.api;
 import com.bizzabo.provider.mailchimp.model.MailchimpCategories;
 import com.bizzabo.provider.mailchimp.model.MailchimpInterests;
 import com.bizzabo.provider.mailchimp.model.MailchimpLists;
+import com.bizzabo.provider.mailchimp.model.MailchimpMergeFields;
 
 public class ListsV3API extends APIV3Resource
 {
@@ -21,5 +22,10 @@ public class ListsV3API extends APIV3Resource
 	
 	public MailchimpInterests getInterests(String listId, String categoryId){
 		return getRequest("/lists/"+listId+"/interest-categories/"+categoryId+"/interests", MailchimpInterests.class);
+	}
+
+	public MailchimpMergeFields getListMergeFields(String listId)
+	{
+		return getRequest("/lists/"+listId+"/merge-fields",MailchimpMergeFields.class);
 	}
 }
