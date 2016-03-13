@@ -9,6 +9,7 @@ public class MailchimpMergeField extends MailchimpResource
 	private String type;
 	private Boolean required;
 	private String defaultValue;
+	private String name;
 	
 	@JsonProperty("public")
 	private Boolean publicField;
@@ -19,7 +20,15 @@ public class MailchimpMergeField extends MailchimpResource
 	private String helpText;
 	private String listId;
 	
+	public String getName()
+	{
+		return name;
+	}
 	
+	public void setName(String name)
+	{
+		this.name = name;
+	}
 
 	public String getHelpText()
 	{
