@@ -26,6 +26,6 @@ public class ListsV3API extends APIV3Resource
 
 	public MailchimpMergeFields getListMergeFields(String listId)
 	{
-		return getRequest("/lists/"+listId+"/merge-fields",MailchimpMergeFields.class);
+		return getRequest("/lists/"+listId+"/merge-fields?count=30",MailchimpMergeFields.class);
 	}
 }
