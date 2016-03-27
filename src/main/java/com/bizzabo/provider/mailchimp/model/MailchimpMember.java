@@ -1,5 +1,8 @@
 package com.bizzabo.provider.mailchimp.model;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class MailchimpMember extends MailchimpResource
 {
 	private String id;
@@ -10,13 +13,21 @@ public class MailchimpMember extends MailchimpResource
 	private String emailType;
 	private MailchimpMemberStatus status;
 	
-	private MailchimpMergeFields mergeFields;
-	private MailchimpInterests interests;
+	private Map<String, Object> interests;
 	private String language;
 	private Boolean vip;
 	private MailchimpLocation location;
 	private String emailAddress;
+
+	private Map<String,Object> mergeFields;
 	
+	public void addMergeField(String tag,Object value){
+		if (mergeFields == null){
+			mergeFields = new HashMap<String, Object>();
+		}
+		mergeFields.put(tag, value);
+	}
+
 	
 	public String getId()
 	{
@@ -66,19 +77,12 @@ public class MailchimpMember extends MailchimpResource
 	{
 		this.status = status;
 	}
-	public MailchimpMergeFields getMergeFields()
-	{
-		return mergeFields;
-	}
-	public void setMergeFields(MailchimpMergeFields mergeFields)
-	{
-		this.mergeFields = mergeFields;
-	}
-	public MailchimpInterests getInterests()
+	
+	public Map<String,Object> getInterests()
 	{
 		return interests;
 	}
-	public void setInterests(MailchimpInterests interests)
+	public void setInterests(Map<String,Object> interests)
 	{
 		this.interests = interests;
 	}
@@ -115,6 +119,14 @@ public class MailchimpMember extends MailchimpResource
 		this.emailAddress = emailAddress;
 	}
 
+	public Map<String, Object> getMergeFields()
+	{
+		return mergeFields;
+	}
 	
+	public void setMergeFields(Map<String, Object> mergeFields)
+	{
+		this.mergeFields = mergeFields;
+	}
 	
 }

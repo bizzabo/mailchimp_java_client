@@ -1,12 +1,18 @@
 package com.bizzabo.provider.mailchimp.api;
 
+import com.bizzabo.provider.mailchimp.model.MailchimpBatchOperation;
+import com.bizzabo.provider.mailchimp.model.MailchimpBatchOperations;
+import com.bizzabo.provider.mailchimp.model.MailchimpBatchOpertaionResponse;
 import com.bizzabo.provider.mailchimp.model.MailchimpCategories;
 import com.bizzabo.provider.mailchimp.model.MailchimpInterests;
 import com.bizzabo.provider.mailchimp.model.MailchimpLists;
+import com.bizzabo.provider.mailchimp.model.MailchimpMember;
 import com.bizzabo.provider.mailchimp.model.MailchimpMergeFields;
+import com.fasterxml.jackson.core.JsonProcessingException;
 
 public class ListsV3API extends APIV3Resource
 {
+	
 	public ListsV3API(String endpoint, String token)
 	{
 		super(endpoint,token);
@@ -28,4 +34,17 @@ public class ListsV3API extends APIV3Resource
 	{
 		return getRequest("/lists/"+listId+"/merge-fields?count=30",MailchimpMergeFields.class);
 	}
+	
+	public MailchimpMember addMember(String listId, MailchimpMember member) throws JsonProcessingException
+	{
+		
+		return putRequest("/lists/"+listId+"/members/"+member.getId(),APIUtils.JSON.writeValueAsString(member),MailchimpMember.class);
+	}
+	
+	public MailchimpBatchOperation buildBatchAddMember(String listId, MailchimpMember member, String operationId) throws JsonProcessingException
+	{
+		return new MailchimpBatchOperation(PUT,"/lists/"+listId+"/members/"+member.getId(),APIUtils.JSON.writeValueAsString(member),operationId);
+	}
+	
+	
 }

@@ -20,6 +20,23 @@ public class MailchimpMergeField extends MailchimpResource
 	private String helpText;
 	private String listId;
 	
+	
+	
+	public MailchimpMergeField()
+	{
+	}
+	
+	
+	public MailchimpMergeField(String tag, String type, Boolean required, String name)
+	{
+		super();
+		this.tag = tag;
+		this.type = type;
+		this.required = required;
+		this.name = name;
+	}
+
+
 	public String getName()
 	{
 		return name;
@@ -129,7 +146,6 @@ public class MailchimpMergeField extends MailchimpResource
 	{
 		this.totalItems = totalItems;
 	}
-	
 	
 
 }

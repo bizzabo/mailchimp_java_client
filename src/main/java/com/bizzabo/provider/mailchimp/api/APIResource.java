@@ -22,6 +22,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 public abstract class APIResource
 {
 
+	protected static final String PUT = "PUT";
 	private static final String CONTENT_LENGTH = "Content-Length";
 	private static final String POST = "POST";
 	private static final String APPLICATION_JSON = "application/json";
@@ -49,6 +50,53 @@ public abstract class APIResource
 			URL url = new URL(getEndpoint()+targetUrl);
 			connection = (HttpURLConnection) url.openConnection();
 			connection.setRequestMethod(POST);
+			connection.setRequestProperty(CONTENT_TYPE, APPLICATION_JSON);
+			connection.setRequestProperty(AUTHORIZATION, O_AUTH+token);
+			connection.setRequestProperty(CONTENT_LENGTH, Integer.toString(payload.getBytes().length));
+
+			connection.setUseCaches(false);
+			connection.setDoOutput(true);
+
+			// Send request
+			DataOutputStream wr = new DataOutputStream(connection.getOutputStream());
+			wr.writeBytes(payload);
+			wr.close();
+
+			// Get Response
+			InputStream is = connection.getInputStream();
+			BufferedReader rd = new BufferedReader(new InputStreamReader(is));
+			StringBuilder response = new StringBuilder();
+			
+			String line;
+			while ((line = rd.readLine()) != null) {
+				response.append(line);
+			}
+			rd.close();
+			String body = response.toString();
+			T resource = APIUtils.JSON.readValue(body, clazz);
+			return resource;
+
+		}
+		catch (IOException e) {
+			// TODO Auto-generated catch block
+			logger.error("failed to execute request: {}", targetUrl, e);
+			return null;
+		}
+		finally {
+			if (connection != null) {
+				connection.disconnect();
+			}
+		}
+	}
+	
+	protected <T> T putRequest(String targetUrl, String payload, Class<T> clazz)
+	{
+		HttpURLConnection connection = null;
+		try {
+			// Create connection
+			URL url = new URL(getEndpoint()+targetUrl);
+			connection = (HttpURLConnection) url.openConnection();
+			connection.setRequestMethod(PUT);
 			connection.setRequestProperty(CONTENT_TYPE, APPLICATION_JSON);
 			connection.setRequestProperty(AUTHORIZATION, O_AUTH+token);
 			connection.setRequestProperty(CONTENT_LENGTH, Integer.toString(payload.getBytes().length));
