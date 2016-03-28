@@ -23,13 +23,14 @@ public abstract class APIResource
 {
 
 	protected static final String PUT = "PUT";
+	protected static final String PATCH = "PATCH";
+	protected static final String POST = "POST";
+	protected static final String GET = "GET";
 	private static final String CONTENT_LENGTH = "Content-Length";
-	private static final String POST = "POST";
 	private static final String APPLICATION_JSON = "application/json";
 	private static final String CONTENT_TYPE = "Content-Type";
 	private static final String O_AUTH = "OAuth ";
 	private static final String AUTHORIZATION = "Authorization";
-	private static final String GET = "GET";
 
 	abstract String getEndpoint();
 

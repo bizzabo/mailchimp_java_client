@@ -12,6 +12,7 @@ public class MailchimpMember extends MailchimpResource
 	private String listId;
 	private String emailType;
 	private MailchimpMemberStatus status;
+	private MailchimpMemberStatus statusIfNew;
 	
 	private Map<String, Object> interests;
 	private String language;
@@ -26,6 +27,16 @@ public class MailchimpMember extends MailchimpResource
 			mergeFields = new HashMap<String, Object>();
 		}
 		mergeFields.put(tag, value);
+	}
+	
+	public MailchimpMemberStatus getStatusIfNew()
+	{
+		return statusIfNew;
+	}
+	
+	public void setStatusIfNew(MailchimpMemberStatus statusIfNew)
+	{
+		this.statusIfNew = statusIfNew;
 	}
 
 	

@@ -42,9 +42,5 @@ public class BatchesV3API extends APIV3Resource
 			return list;
 			
 	}
-	public static void main(String[] args) throws MalformedURLException, IOException
-	{
-		System.out.println(APIUtils.JSON.writeValueAsString(new BatchesV3API(null, null).getBatchResponseBody("https://mailchimp-api-batch.s3.amazonaws.com/e46adba711-response.tar.gz?AWSAccessKeyId=AKIAJWOH5BECJQZIEWNQ&Expires=1459091912&Signature=kpD4wle15QzGf9VqdVjMlu1T1DA%3D")));
-	}
 
 }
