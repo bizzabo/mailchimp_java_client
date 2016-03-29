@@ -34,7 +34,7 @@ public class BatchesV3API extends APIV3Resource
 			if (list != null){
 				for (MailchimpBatchStatus mailchimpBatchStatus : list) {
 					String response = mailchimpBatchStatus.getResponse();
-					if (response != null){
+					if (mailchimpBatchStatus.getStatusCode() != 200 && response != null){
 						mailchimpBatchStatus.setJsonResponse(APIUtils.JSON.readValue(response, MailchimpApiResponse.class));
 					}
 				}
