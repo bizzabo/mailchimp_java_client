@@ -2,7 +2,6 @@
 package com.bizzabo.provider.mailchimp.api;
 
 import java.io.BufferedReader;
-import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -50,32 +49,36 @@ public abstract class APIResource
 			// Create connection
 			URL url = new URL(getEndpoint()+targetUrl);
 			connection = (HttpURLConnection) url.openConnection();
+			connection.setDoOutput(true);
 			connection.setRequestMethod(POST);
 			connection.setRequestProperty(CONTENT_TYPE, APPLICATION_JSON);
 			connection.setRequestProperty(AUTHORIZATION, O_AUTH+token);
 			connection.setRequestProperty(CONTENT_LENGTH, Integer.toString(payload.getBytes().length));
 
 			connection.setUseCaches(false);
-			connection.setDoOutput(true);
 
 			// Send request
-			DataOutputStream wr = new DataOutputStream(connection.getOutputStream());
-			wr.writeBytes(payload);
-			wr.close();
+			connection.getOutputStream().write(payload.getBytes());
 
 			// Get Response
-			InputStream is = connection.getInputStream();
-			BufferedReader rd = new BufferedReader(new InputStreamReader(is));
-			StringBuilder response = new StringBuilder();
-			
-			String line;
-			while ((line = rd.readLine()) != null) {
-				response.append(line);
+			int responseCode = connection.getResponseCode();
+			if (responseCode >=400){
+				logger.error("failed while executing maichimp post request with response: {} {}",responseCode,connection.getResponseMessage());
+				throw new IOException(connection.getResponseMessage());
+			}else{
+				InputStream is = connection.getInputStream();
+				BufferedReader rd = new BufferedReader(new InputStreamReader(is));
+				StringBuilder response = new StringBuilder();
+				
+				String line;
+				while ((line = rd.readLine()) != null) {
+					response.append(line);
+				}
+				rd.close();
+				String body = response.toString();
+				T resource = APIUtils.JSON.readValue(body, clazz);
+				return resource;
 			}
-			rd.close();
-			String body = response.toString();
-			T resource = APIUtils.JSON.readValue(body, clazz);
-			return resource;
 
 		}
 		catch (IOException e) {
@@ -106,9 +109,7 @@ public abstract class APIResource
 			connection.setDoOutput(true);
 
 			// Send request
-			DataOutputStream wr = new DataOutputStream(connection.getOutputStream());
-			wr.writeBytes(payload);
-			wr.close();
+			connection.getOutputStream().write(payload.getBytes());;
 
 			// Get Response
 			InputStream is = connection.getInputStream();
