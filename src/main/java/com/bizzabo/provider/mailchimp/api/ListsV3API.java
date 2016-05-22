@@ -1,5 +1,7 @@
 package com.bizzabo.provider.mailchimp.api;
 
+import java.util.Map;
+
 import com.bizzabo.provider.mailchimp.model.MailchimpBatchOperation;
 import com.bizzabo.provider.mailchimp.model.MailchimpCategories;
 import com.bizzabo.provider.mailchimp.model.MailchimpInterests;
@@ -18,21 +20,23 @@ public class ListsV3API extends APIV3Resource
 		super(endpoint,token);
 	}
 	
-	public MailchimpLists get(){
-		return getRequest("/lists", MailchimpLists.class);
+	public MailchimpLists get(Map<String,Object> params){
+		return getRequest("/lists",params, MailchimpLists.class);
 	}
 
-	public MailchimpCategories getInterestCategories(String listId){
-		return getRequest("/lists/"+listId+"/interest-categories", MailchimpCategories.class);
+	public MailchimpCategories getInterestCategories(String listId, Map<String,Object> params){
+		String targetUrl = "/lists/"+listId+"/interest-categories";
+		
+		return getRequest(targetUrl,params, MailchimpCategories.class);
 	}
 	
-	public MailchimpInterests getInterests(String listId, String categoryId){
-		return getRequest("/lists/"+listId+"/interest-categories/"+categoryId+"/interests", MailchimpInterests.class);
+	public MailchimpInterests getInterests(String listId, String categoryId,Map<String,Object> params){
+		return getRequest("/lists/"+listId+"/interest-categories/"+categoryId+"/interests",params, MailchimpInterests.class);
 	}
 
-	public MailchimpMergeFields getListMergeFields(String listId)
+	public MailchimpMergeFields getListMergeFields(String listId,Map<String,Object> params)
 	{
-		return getRequest("/lists/"+listId+"/merge-fields?count=30",MailchimpMergeFields.class);
+		return getRequest("/lists/"+listId+"/merge-fields",params,MailchimpMergeFields.class);
 	}
 	
 	public MailchimpMember addMember(String listId, MailchimpMember member) throws JsonProcessingException

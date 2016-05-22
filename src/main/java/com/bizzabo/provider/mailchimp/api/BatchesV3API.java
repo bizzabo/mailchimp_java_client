@@ -24,7 +24,7 @@ public class BatchesV3API extends APIV3Resource
 	}
 	
 	public MailchimpBatchOpertaionResponse get(String batchId){
-		return getRequest("/batches/"+batchId, MailchimpBatchOpertaionResponse.class);
+		return getRequest("/batches/"+batchId,null, MailchimpBatchOpertaionResponse.class);
 	}
 	
 	public List<MailchimpBatchStatus> getBatchResponseBody(String url) throws MalformedURLException, IOException{

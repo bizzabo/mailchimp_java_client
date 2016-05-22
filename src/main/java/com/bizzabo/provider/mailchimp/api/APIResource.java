@@ -7,6 +7,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -139,12 +140,12 @@ public abstract class APIResource
 	}
 	
 	@SuppressWarnings("rawtypes")
-	protected <T> T getRequest(String targetUrl, TypeReference typeReference)
+	protected <T> T getRequest(String targetUrl,Map<String,Object> params, TypeReference typeReference)
 	{
 		HttpURLConnection connection = null;
 		try {
 			// Create connection
-			URL url = new URL(getEndpoint()+targetUrl);
+			URL url = new URL(getEndpoint()+targetUrl+ APIUtils.buildQueryString(params));
 			connection = (HttpURLConnection) url.openConnection();
 			connection.setRequestMethod(GET);
 			connection.setRequestProperty(AUTHORIZATION, O_AUTH+token);
@@ -180,12 +181,13 @@ public abstract class APIResource
 		}
 	}
 	
-	protected <T> T getRequest(String targetUrl, Class<T> clazz)
+	protected <T> T getRequest(String targetUrl,Map<String,Object> params, Class<T> clazz)
 	{
 		HttpURLConnection connection = null;
 		try {
 			// Create connection
-			URL url = new URL(getEndpoint()+targetUrl);
+			
+			URL url = new URL(getEndpoint()+targetUrl+ APIUtils.buildQueryString(params));
 			connection = (HttpURLConnection) url.openConnection();
 			connection.setRequestMethod(GET);
 			connection.setRequestProperty(AUTHORIZATION, O_AUTH+token);
